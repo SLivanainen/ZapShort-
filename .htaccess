@@ -1,0 +1,15 @@
+# .htaccess
+
+# Enable rewrite engine
+RewriteEngine On
+
+# Redirect all requests that are not existing files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route short codes to redirect.php
+RewriteRule ^([a-zA-Z0-9]{6})$ redirect.php?code=$1 [L]
+
+# Optional: Force HTTPS for security and SEO
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
