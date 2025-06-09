@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Shorty - The Premium & Fast URL Shortener</title>
+    <meta name="description" content="A free, fast, and premium URL shortener to create clean, memorable short links. Shorten long URLs instantly with our reliable service.">
+    <meta name="keywords" content="url shortener, link shortener, short url, tiny url, custom url, free url shortener, seo">
+    <meta name="author" content="Your Brand Name">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="Shorty - The Premium & Fast URL Shortener">
+    <meta property="og:description" content="Instantly create short, shareable links from any long URL. Free, fast, and reliable.">
+    <meta property="og:image" content="https://yourdomain.com/assets/social-preview.jpg"> <!-- Create a 1200x630px image -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourdomain.com/">
+    <meta property="twitter:title" content="Shorty - The Premium & Fast URL Shortener">
+    <meta property="twitter:description" content="Instantly create short, shareable links from any long URL. Free, fast, and reliable.">
+    <meta property="twitter:image" content="https://yourdomain.com/assets/social-preview.jpg">
+
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://yourdomain.com/",
+      "name": "Shorty",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://yourdomain.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Reset & Base Styles */
+        :root {
+            --primary-color: #0062ff;
+            --primary-gradient: linear-gradient(90deg, #0062ff, #00a4ff);
+            --secondary-color: #1a202c;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #4a5568;
+            --heading-color: #1a202c;
+            --border-color: #e2e8f0;
+            --success-color: #38a169;
+            --error-color: #e53e3e;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3 { color: var(--heading-color); font-weight: 700; margin-bottom: 1rem; }
+        p { margin-bottom: 1rem; }
+        a { color: var(--primary-color); text-decoration: none; transition: color 0.3s; }
+        a:hover { color: #004ecc; }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 8px;
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        /* Header */
+        .site-header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--heading-color); }
+        .logo span { color: var(--primary-color); }
+        .main-nav a { margin-left: 1.5rem; font-weight: 500; }
+        .ad-placeholder-header { text-align: center; background: #eee; padding: 5px 0; margin-bottom: 1rem; }
+        .ad-placeholder-header p, .ad-placeholder-body p, .ad-placeholder-footer p { font-size: 0.8rem; color: #777; }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3.5rem; line-height: 1.2; }
+        .hero p { font-size: 1.25rem; max-width: 600px; margin: 1rem auto 2rem auto; }
+        
+        /* Shortener Form */
+        .shortener-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .shorten-form { display: flex; gap: 1rem; }
+        .url-input {
+            flex-grow: 1;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .url-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 98, 255, 0.2);
+        }
+        .options { margin-top: 1rem; text-align: left; }
+        .options label { cursor: pointer; display: flex; align-items: center; gap: 0.5rem; }
+        
+        /* Results & Recent Links */
+        .result-section, .recent-links-section { margin-top: 2rem; }
+        .error-message { color: var(--error-color); background: #fee2e2; padding: 1rem; border-radius: 8px; margin-top: 1rem; display: none; }
+        #result-container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-top: 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        #result-info { flex-grow: 1; }
+        #short-url { font-weight: 600; color: var(--primary-color); font-size: 1.1rem; word-break: break-all; }
+        .copy-btn { padding: 10px 20px; background: var(--secondary-color); font-size: 0.9rem; }
+        .copy-btn.copied { background: var(--success-color); }
+        #qr-code { padding: 10px; background: white; border-radius: 8px; }
+        #qr-code img { display: block; }
+
+        .recent-links-list { list-style: none; margin-top: 1rem; }
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            box-shadow: var(--shadow);
+            word-break: break-all;
+        }
+        .recent-item a { font-weight: 500; }
+        .recent-item .long-url { font-size: 0.9em; color: #718096; max-width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        
+        /* Footer */
+        .site-footer {
+            background: var(--secondary-color);
+            color: #a0aec0;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+        .footer-col h4 { color: white; margin-bottom: 1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.5rem; }
+        .footer-col a { color: #a0aec0; }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #2d3748; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero { padding: 4rem 0; }
+            .shorten-form { flex-direction: column; }
+            .main-nav { display: none; } /* Simplified for example, can add mobile menu JS */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <!-- Ad Placeholder: Header -->
+            <div class="ad-placeholder-header">
+                <p>Adsterra 728x90 Banner</p>
+                <!-- techpk -->
+            </div>
+            <div class="header-content">
+                <a href="/" class="logo">Shorty<span>.</span></a>
+                <nav class="main-nav">
+                    <a href="#features">Features</a>
+                    <a href="#terms">Terms</a>
+                    <a href="#contact">Contact</a>
+                    <a href="/admin.php">Admin</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>The Perfect Short Link</h1>
+            <p>A free, fast, and premium tool to shorten long, ugly URLs into clean, memorable links that you can easily share.</p>
+            
+            <div class="shortener-card">
+                <form id="shorten-form">
+                    <div class="shorten-form">
+                        <input type="url" id="long-url-input" class="url-input" placeholder="Enter your long URL here..." required>
+                        <button type="submit" class="btn" id="submit-btn">Shorten</button>
+                    </div>
+                    <div class="options">
+                        <label for="preview-checkbox">
+                            <input type="checkbox" id="preview-checkbox">
+                            Enable link preview page for security
+                        </label>
+                    </div>
+                </form>
+                <div class="error-message" id="error-message"></div>
+                
+                <!-- Ad Placeholder: Body -->
+                <div class="ad-placeholder-body" style="margin-top: 1.5rem; text-align:center; background: #eee; padding: 10px;">
+                    <p>Adsterra 728x90 Banner</p>
+                    <!-- techpk -->
+                </div>
+
+                <div id="result-container">
+                    <div id="result-info">
+                        <p>Your short link is ready!</p>
+                        <a href="#" id="short-url" target="_blank"></a>
+                    </div>
+                    <div id="qr-code"></div>
+                    <button class="btn copy-btn" id="copy-btn">Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-links-section" id="recent-links-section" style="display: none;">
+            <h2>Recently Shortened</h2>
+            <ul class="recent-links-list" id="recent-links-list">
+                <!-- Links will be injected by JS -->
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <!-- Ad Placeholder: Footer -->
+            <div class="ad-placeholder-footer" style="margin-bottom: 2rem; text-align:center; background: #3e4a61; padding: 10px;">
+                <p>Adsterra 728x90 Banner</p>
+                <!-- techpk -->
+            </div>
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Shorty</h4>
+                    <p>The simplest way to create and share short, branded links.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/admin.php">Admin Panel</a></li>
+                        <li><a href="#features">Features</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <!-- Replace with actual social links -->
+                    <a href="#">Twitter</a> | <a href="#">Facebook</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <?php echo date("Y"); ?> Shorty. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- QR Code Generation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/davidshimjs-qrcodejs@0.0.2/qrcode.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const shortenForm = document.getElementById('shorten-form');
+            const longUrlInput = document.getElementById('long-url-input');
+            const submitBtn = document.getElementById('submit-btn');
+            const errorMessage = document.getElementById('error-message');
+            
+            const resultContainer = document.getElementById('result-container');
+            const shortUrlLink = document.getElementById('short-url');
+            const copyBtn = document.getElementById('copy-btn');
+            const qrCodeContainer = document.getElementById('qr-code');
+
+            const recentLinksSection = document.getElementById('recent-links-section');
+            const recentLinksList = document.getElementById('recent-links-list');
+
+            let qrCode = null; // To hold the QRCode.js instance
+
+            // Function to display error messages
+            const displayError = (message) => {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                resultContainer.style.display = 'none';
+            };
+
+            // Function to handle form submission
+            shortenForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const longUrl = longUrlInput.value.trim();
+                const enablePreview = document.getElementById('preview-checkbox').checked;
+
+                // Basic client-side validation
+                if (!longUrl || !/^https?:\/\/.*/.test(longUrl)) {
+                    displayError('Please enter a valid URL (e.g., https://example.com)');
+                    return;
+                }
+
+                // UI feedback
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Shortening...';
+                errorMessage.style.display = 'none';
+
+                try {
+                    const response = await fetch('shorten.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ url: longUrl, preview: enablePreview })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        const fullShortUrl = `${window.location.origin}/${data.short_code}`;
+                        shortUrlLink.href = fullShortUrl;
+                        shortUrlLink.textContent = fullShortUrl.replace(/^https?:\/\//, '');
+                        resultContainer.style.display = 'flex';
+                        
+                        // Generate QR Code
+                        if(qrCode) {
+                            qrCode.makeCode(fullShortUrl);
+                        } else {
+                            qrCode = new QRCode(qrCodeContainer, {
+                                text: fullShortUrl,
+                                width: 80,
+                                height: 80,
+                                colorDark : "#000000",
+                                colorLight : "#ffffff",
+                                correctLevel : QRCode.CorrectLevel.H
+                            });
+                        }
+                        
+                        // Save to local storage and update recent links
+                        saveRecentLink(longUrl, fullShortUrl);
+                        loadRecentLinks();
+
+                    } else {
+                        displayError(data.error || 'An unknown error occurred.');
+                    }
+
+                } catch (error) {
+                    displayError('Could not connect to the server. Please try again later.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Shorten';
+                }
+            });
+
+            // Copy to clipboard functionality
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(shortUrlLink.href).then(() => {
+                    copyBtn.textContent = 'Copied!';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.textContent = 'Copy';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+
+            // Local Storage functions for recent links
+            const getRecentLinks = () => JSON.parse(localStorage.getItem('recentLinks')) || [];
+
+            const saveRecentLink = (longUrl, shortUrl) => {
+                let links = getRecentLinks();
+                // Remove if already exists to avoid duplicates and move to top
+                links = links.filter(link => link.shortUrl !== shortUrl);
+                links.unshift({ longUrl, shortUrl });
+                // Keep only the last 5 links
+                localStorage.setItem('recentLinks', JSON.stringify(links.slice(0, 5)));
+            };
+
+            const loadRecentLinks = () => {
+                const links = getRecentLinks();
+                if (links.length > 0) {
+                    recentLinksSection.style.display = 'block';
+                    recentLinksList.innerHTML = links.map(link => `
+                        <li class="recent-item">
+                            <div>
+                                <a href="${link.shortUrl}" target="_blank">${link.shortUrl.replace(/^https?:\/\//, '')}</a>
+                                <p class="long-url">${link.longUrl}</p>
+                            </div>
+                            <button class="btn copy-btn" onclick="copyRecent(this, '${link.shortUrl}')">Copy</button>
+                        </li>
+                    `).join('');
+                } else {
+                    recentLinksSection.style.display = 'none';
+                }
+            };
+
+            // Initial load of recent links
+            loadRecentLinks();
+        });
+
+        // Helper function for copying from recent list
+        function copyRecent(button, url) {
+            navigator.clipboard.writeText(url).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+            });
+        }
+    </script>
+</body>
+          </html>
